@@ -298,22 +298,12 @@ const Element = {
     this.props[prop] = unpackTransition(value)
     const props = Object.entries(this.props.props)
 
-    if (props.length === 1) {
-      const [p, v] = props[0]
+    for (let i = 0; i < props.length; i++) {
+      const [p, v] = props[i]
       if (isTransition(value)) {
         return this.animate(p, v, value.transition)
       } else if (this.node[p] !== v) {
         this.node[p] = v
-      }
-    } else {
-      for (let i = 0; i < props.length; i++) {
-        // todo: fix code duplication
-        const [p, v] = props[i]
-        if (isTransition(value)) {
-          return this.animate(p, v, value.transition)
-        } else if (this.node[p] !== v) {
-          this.node[p] = v
-        }
       }
     }
 
